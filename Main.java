@@ -105,7 +105,7 @@ public class Main {
                     }
                     break;
                 case "7":
-                    
+                    System.out.println(carro.desempanador(carro.isDesempanador()));
                     break;
                 case "8":
                     

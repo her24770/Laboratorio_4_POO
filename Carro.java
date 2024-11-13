@@ -98,7 +98,8 @@ public class Carro implements Climatizacion{
 
     @Override
     public String desempanador(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        desempanador = !estado;
+        return desempanador ? "Desempañador encendido." : "Desempañador apagado.";
     }
 
     @Override
