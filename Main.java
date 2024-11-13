@@ -154,7 +154,23 @@ public class Main {
                     
                     break;
                 case "8":
-                    
+                    System.out.println("\nMantenimiento\n\n"+
+                    "1. Historial\n" + 
+                    "2. Programar Mantenimiento");
+                    System.out.print("Ingrese su opcion: ");
+                    String manOp = sc.nextLine();
+
+                    if(manOp.equals("1")){
+                        for(Registro dato : historial){
+                            System.out.print(dato.toString());
+                        }
+                    }
+                    else if(manOp.equals("2")){
+
+                    }
+                    else{
+                        System.out.println("Opcion inválida");
+                    }
                     break;
                 case "9":
                     bucleMenu = false;
