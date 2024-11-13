@@ -1,5 +1,9 @@
 import java.util.List;
 
+/**
+ * La clase Carro implementa la interfaz Climatizacion y contiene los atributos
+ * y metodos especificos para configurar el sistema de climatizacion.
+ */
 public class Carro implements Climatizacion{
 
     private boolean encendido;
@@ -10,10 +14,25 @@ public class Carro implements Climatizacion{
     private String ventilacionDireccional;
     private boolean ecoVentilacion;
     private boolean desempanador;
-    
+
+    /**
+     * Constructor Vacio
+     */
     public Carro() {
     }
 
+    /**
+     * Constructor Personalizado.
+     *
+     * @param encendido
+     * @param temperaturaVentilacion
+     * @param temperaturaAsientos
+     * @param nivelVentilacion
+     * @param nivelVentilacionAsiento
+     * @param ventilacionDireccional
+     * @param ecoVentilacion
+     * @param desempanador
+     */
     public Carro(boolean encendido, int temperaturaVentilacion, int temperaturaAsientos, short nivelVentilacion,
             short nivelVentilacionAsiento, String ventilacionDireccional, boolean ecoVentilacion,
             boolean desempanador) {
