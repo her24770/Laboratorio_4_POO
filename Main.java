@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         
@@ -31,18 +32,27 @@ public class Main {
             switch (opMenu) {
                 case "1":
                     System.out.println(carro.encendido(carro.isEncendido()));
+                    if(carro.isEncendido()){
+                        historial.add(new Registro("Encendido",new Date()));
+                    }
+                    else {
+                        historial.add(new Registro("Apagado",new Date()));
+                    }
+                    
                     break;
                 case "2":
                     System.out.println("\nAjuse de temperaura: ");
                     System.out.println("1. Aumentar");
                     System.out.println("2. Disminuir");
                     while (bucleMenu) {
-                        System.out.print("Ingrese su opccion (0 para salir): ");
+                        System.out.print("Ingrese su opcion (0 para salir): ");
                         String op = sc.nextLine();
                         if (op.equals("1")) {
                             System.out.println(carro.ajusteTemperatura(true));
+                            historial.add(new Registro("Se aumentó (1) la temperatura", new Date()));
                         } else if ( op.equals("2")) {
-                            System.out.println(carro.ajusteTemperatura(false)); 
+                            System.out.println(carro.ajusteTemperatura(false));
+                            historial.add(new Registro("Se diminuyó (1) la temperatura", new Date())); 
                         }else if (op.equals("0")) {
                             bucleMenu = false;
                         } 
@@ -55,6 +65,7 @@ public class Main {
                     System.out.print("Ingrese la temperatura ambiente: ");
                     String ventilacionAmbiente = sc.nextLine();
                     System.out.println(carro.modoAutomatico(Integer.parseInt(ventilacionAmbiente)));
+                    historial.add(new Registro("Cambio automático a " + carro.getTemperaturaVentilacion() + "°C" , new Date()));
                     break;
                 case "4":
                 System.out.println("\nNivel de ventilación: ");
@@ -65,12 +76,21 @@ public class Main {
                 String opMenu4= sc.nextLine();
                 switch (opMenu4) {
                     case "1":
-                        System.out.println("\n1. Primer nivel de ventailacion");
-                        System.out.println("2. Segundo nivel de ventailacion");
-                        System.out.println("3. Tercero nivel de ventailacion");
+                        System.out.println("\n1. Primer nivel de ventilacion");
+                        System.out.println("2. Segundo nivel de ventilacion");
+                        System.out.println("3. Tercero nivel de ventilacion");
                         System.out.print("Ingrese su opccion: ");
                         String cambiarNivelVentilacion = sc.nextLine();
                         System.out.println(carro.nivelVentilacion(1, Integer.parseInt(cambiarNivelVentilacion)));
+                        if(carro.getNivelVentilacion() == 1){
+                            historial.add(new Registro("Nivel 1 de ventilación", new Date()));
+                        }
+                        else if (carro.getNivelVentilacion() == 2){
+                            historial.add(new Registro("Nivel 2 de ventilación", new Date()));
+                        }
+                        else {
+                            historial.add(new Registro("Nivel 3 de ventilación", new Date()));
+                        }
                         break;
                     case "2":
                         System.out.println("\n1. Parabrisas");
@@ -79,9 +99,19 @@ public class Main {
                         System.out.print("Ingrese su opccion: ");
                         String cambiarDireccionVentilacion = sc.nextLine();
                         System.out.println(carro.nivelVentilacion(2, Integer.parseInt(cambiarDireccionVentilacion)));
+                        if(carro.getVentilacionDireccional() == "parabrisas"){
+                            historial.add(new Registro("Flujo hacia parabrisas", new Date()));
+                        }
+                        else if(carro.getVentilacionDireccional() == "frontal"){
+                            historial.add(new Registro("Flujo desde frente", new Date()));
+                        }
+                        else{
+                            historial.add(new Registro("Flujo hacia pies", new Date()));
+                        }
                         break;
                     case "3":
                         System.err.println(carro.nivelVentilacion(3, 0));
+                        historial.add(new Registro("Modo ECO activo", new Date()));
                         break;
                     default:
                         System.out.println("\nOpción no válida");
@@ -100,12 +130,28 @@ public class Main {
                     String cambiarDireccionVentilacion = sc.nextLine();
                     if (cambiarDireccionVentilacion.equals("1") || cambiarDireccionVentilacion.equals("2") || cambiarDireccionVentilacion.equals("3")) {
                         System.out.println(carro.distribucionAire(Integer.parseInt(cambiarDireccionVentilacion)));
+                        if(carro.getVentilacionDireccional() == "parabrisas"){
+                            historial.add(new Registro("Flujo hacia parabrisas", new Date()));
+                        }
+                        else if(carro.getVentilacionDireccional() == "frontal"){
+                            historial.add(new Registro("Flujo desde frente", new Date()));
+                        }
+                        else{
+                            historial.add(new Registro("Flujo hacia pies", new Date()));
+                        }
                     } else {
                         System.out.println("Opción no válida");
                     }
                     break;
                 case "7":
                     System.out.println(carro.desempanador(carro.isDesempanador()));
+                    if(carro.isDesempanador()){
+                        historial.add(new Registro("Desempañador activado", new Date()));
+                    }
+                    else{
+                        historial.add(new Registro("Desempañador desactivado", new Date()));
+                    }
+                    
                     break;
                 case "8":
                     
