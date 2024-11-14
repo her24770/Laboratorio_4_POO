@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +11,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Carro carro = new Carro(false, 20, 20, (short) 1, (short) 1, "Frontal", false, false);
         List<Registro> historial = new ArrayList<>();
+        List<Date> citas = new ArrayList<>();
+        DateTimeFormatter formatoCita = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         boolean bucleMenu = true;
 
         while (bucleMenu) {
@@ -41,10 +46,11 @@ public class Main {
                     
                     break;
                 case "2":
+                    boolean bucleMenu2 = true;
                     System.out.println("\nAjuse de temperaura: ");
                     System.out.println("1. Aumentar");
                     System.out.println("2. Disminuir");
-                    while (bucleMenu) {
+                    while (bucleMenu2) {
                         System.out.print("Ingrese su opcion (0 para salir): ");
                         String op = sc.nextLine();
                         if (op.equals("1")) {
@@ -52,9 +58,9 @@ public class Main {
                             historial.add(new Registro("Se aumentó (1) la temperatura", new Date()));
                         } else if ( op.equals("2")) {
                             System.out.println(carro.ajusteTemperatura(false));
-                            historial.add(new Registro("Se diminuyó (1) la temperatura", new Date())); 
+                            historial.add(new Registro("Se disminuyó (1) la temperatura", new Date())); 
                         }else if (op.equals("0")) {
-                            bucleMenu = false;
+                            bucleMenu2 = false;
                         } 
                         else {
                             System.out.println("Opción no válida");
@@ -81,16 +87,21 @@ public class Main {
                         System.out.println("3. Tercero nivel de ventilacion");
                         System.out.print("Ingrese su opccion: ");
                         String cambiarNivelVentilacion = sc.nextLine();
-                        System.out.println(carro.nivelVentilacion(1, Integer.parseInt(cambiarNivelVentilacion)));
-                        if(carro.getNivelVentilacion() == 1){
-                            historial.add(new Registro("Nivel 1 de ventilación", new Date()));
+                        if(cambiarNivelVentilacion.equals("1" ) || cambiarNivelVentilacion.equals("2") || cambiarNivelVentilacion.equals("3" )){
+                            System.out.println(carro.nivelVentilacion(1, Integer.parseInt(cambiarNivelVentilacion)));
+                            if(carro.getNivelVentilacion() == 1){
+                                historial.add(new Registro("Nivel 1 de ventilación", new Date()));
+                            }
+                            else if (carro.getNivelVentilacion() == 2){
+                                historial.add(new Registro("Nivel 2 de ventilación", new Date()));
+                            }
+                            else {
+                                historial.add(new Registro("Nivel 3 de ventilación", new Date()));
+                            }
+                        }else{
+                            System.out.println("Opcion invalida");
                         }
-                        else if (carro.getNivelVentilacion() == 2){
-                            historial.add(new Registro("Nivel 2 de ventilación", new Date()));
-                        }
-                        else {
-                            historial.add(new Registro("Nivel 3 de ventilación", new Date()));
-                        }
+                        
                         break;
                     case "2":
                         System.out.println("\n1. Parabrisas");
@@ -119,7 +130,9 @@ public class Main {
                 }
                     break;
                 case "5":
-                    
+                    //Menu Calefaccion (1. el modo rapido 2.calefaccion asientos)
+                    //1. temporizador (activa calefaccion y luego vuelve a como estaba)
+                    //2. (MENU ASIENTOS) copiar funcion cuatro pero en asientos y override funcion en carro.java
                     break;
                 case "6":
                     System.out.println("\nDistribución de aire: ");
@@ -162,11 +175,48 @@ public class Main {
 
                     if(manOp.equals("1")){
                         for(Registro dato : historial){
-                            System.out.print(dato.toString());
+                            System.out.print("\n" + dato.toString());
                         }
                     }
                     else if(manOp.equals("2")){
+                        System.out.println("\nProgramación de Mantenimiento\n\n"+ 
+                        "1. Agendar cita\n" +
+                        "2. Ver citas agendadas");
+                        System.out.print("Ingrese su opcion: ");
 
+                        switch(sc.nextLine()){
+                            case "1":
+                                try{
+                                    System.out.print("Escriba la fecha y hora que desea agendar (dd-MM-yyyy HH:mm): ");
+                                    String cita = sc.nextLine();
+                                    LocalDateTime fechaHora = LocalDateTime.parse(cita, formatoCita);
+        
+                                    //Convertir LocalDateTime a Date
+                                    Date fechaCita = Date.from(fechaHora.atZone(ZoneId.systemDefault()).toInstant());
+                                    citas.add(fechaCita);
+                                    System.out.println("Cita agendada con exito :)");
+                                } catch(Exception e){
+                                    System.out.println("Datos ingresados no válidos");
+                                }
+                            break;
+
+                            case "2":
+                                int i = 1;
+
+                                if(citas.isEmpty()){
+                                    System.out.println("No tienes citas agendadas");
+                                }
+                                for(Date cita : citas){
+                                    System.out.println( i + " : " + cita);
+                                    i++;
+                                }
+                            break;
+
+                            default:
+                                System.out.println("Opcion no valida");
+                            break;
+                        }
+                        
                     }
                     else{
                         System.out.println("Opcion inválida");
