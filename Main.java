@@ -8,6 +8,13 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Programa principal que simula el sistema de climatización de un vehículo
+ * @author Gabriel hidalgo 24939, Josue hernandez 24770, Juan Ordoñez 24979
+ * Fecha de inicio: 13-11-2024
+ * Ultima edicion: 13-11-2024
+ */
+
 public class Main {
     public static void main(String[] args) {
         
