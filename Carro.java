@@ -281,7 +281,7 @@ public class Carro implements Climatizacion{
      *
      * @return Estado del sistema de ventilacion ecologica
      */
-    public boolean isEcoVentilacion() {
+    public boolean getEcoVentilacion() {
         return ecoVentilacion;
     }
 
