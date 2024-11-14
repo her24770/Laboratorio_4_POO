@@ -126,7 +126,22 @@ public class Carro implements Climatizacion{
      */
     @Override
     public String modoCalefaccion(int op) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (op==1) {
+            nivelVentilacionAsiento=(short)op;
+            if (op==1) {
+                temperaturaAsientos=15;
+            } else if(op==2){
+                temperaturaAsientos=20;
+            }else {
+                temperaturaAsientos=25;
+            }
+            return "Temperatura de Asientos actual: "+temperaturaAsientos;
+        // throw new UnsupportedOperationException("Not supported yet.");
+        }
+        else {
+            // Manejar otros casos de op
+            return "Opción de calefacción no válida";
+        }
     }
 
     /**

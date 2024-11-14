@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Main {
     public static void main(String[] args) {
         
@@ -119,6 +122,53 @@ public class Main {
                 }
                     break;
                 case "5":
+                    System.out.println("\nModo calefacción: ");
+                    System.out.println("1. Calefaccion Rapida");
+                    System.out.println("2. Calefaccion de Asientos");
+                    System.out.print("Ingrese su opccion: ");
+                    String cambiarModoCalefaccion = sc.nextLine();
+                    if(cambiarModoCalefaccion.equals("1")) {
+                        // Guardar el nivel de temperatura actual
+                        int nivelActual = carro.getNivelVentilacionAsiento();
+                        
+                        // Cambiar a un nivel de temperatura más alto (por ejemplo, nivel 3)
+                        carro.nivelVentilacion(1, 3);
+                        System.out.println("Calefacción rápida activada. Nivel de ventilación de asiento: 3");
+                        
+                        // Crear un temporizador para volver al nivel anterior después de 5 segundos (5000 ms)
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                carro.nivelVentilacion(1, nivelActual);
+                                System.out.println("Calefacción rápida desactivada. Nivel de ventilación restaurado: " + nivelActual);
+                                historial.add(new Registro("Calefacción rápida desactivada", new Date()));
+                            }
+                        }, 5000); // 5000 ms = 5 segundos
+                        
+                        historial.add(new Registro("Calefacción rápida activada", new Date()));
+                    }
+                    if (cambiarModoCalefaccion.equals("2")) {
+                        System.out.println("\n1. Primer nivel de calefaccion de asientos");
+                        System.out.println("2. Segundo nivel de calefaccion de asientos");
+                        System.out.println("3. Tercero nivel de calefaccion de asientos");
+                        System.out.print("Ingrese su opccion: ");
+                        String cambiarTemperaturaAsientos = sc.nextLine();
+                        System.out.println(carro.modoCalefaccion(Integer.parseInt(cambiarTemperaturaAsientos)));
+                        if(carro.getNivelVentilacionAsiento() == 1){
+                            historial.add(new Registro("Nivel 1 de ventilación", new Date()));
+                        }
+                        else if (carro.getNivelVentilacionAsiento() == 2){
+                            historial.add(new Registro("Nivel 2 de ventilación", new Date()));
+                        }
+                        else {
+                            historial.add(new Registro("Nivel 3 de ventilación", new Date()));
+                        }
+                    }
+                    else {
+                        System.out.println("Opción no válida");
+                    }
+
                     
                     break;
                 case "6":
