@@ -177,15 +177,15 @@ public class Carro implements Climatizacion{
      * @return Lista de registros de mantenimiento
      */
     @Override
-    public List<Registro> historialMantenimiento() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String historialMantenimiento(Registro r) {
+        return "Mantenimiento hecho el " + r.getFechaCambio() + ", el cambio hecho fue: " + r.getCambio();
     }
 
     /**
      *
      * @return Estado de encendido del sistema
      */
-    public boolean isEncendido() {
+    public boolean getEncendido() {
         return encendido;
     }
 
@@ -297,7 +297,7 @@ public class Carro implements Climatizacion{
      *
      * @return Estado del desempanador
      */
-    public boolean isDesempanador() {
+    public boolean getDesempanador() {
         return desempanador;
     }
 

@@ -59,5 +59,5 @@ public interface Climatizacion {
      * Guarda el historial de mantenimiento del  sistema
      * @return Mensaje con la lista de registros de mantenimiento
      */
-    public List<Registro> historialMantenimiento();
+    public String historialMantenimiento(Registro r);
 }

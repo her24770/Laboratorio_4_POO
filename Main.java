@@ -32,15 +32,15 @@ public class Main {
             System.out.print("Ingrese su opccion: ");
             String opMenu = sc.nextLine();
 
-            if (!carro.isEncendido() && !opMenu.equals("1")) {
+            if (!carro.getEncendido() && !opMenu.equals("1")) {
                 System.out.println("El sistema está apagado");
                 opMenu = "10";
             }
             
             switch (opMenu) {
                 case "1":
-                    System.out.println(carro.encendido(carro.isEncendido()));
-                    if(carro.isEncendido()){
+                    System.out.println(carro.encendido(carro.getEncendido()));
+                    if(carro.getEncendido()){
                         historial.add(new Registro("Encendido",new Date()));
                     }
                     else {
@@ -205,8 +205,8 @@ public class Main {
                     }
                     break;
                 case "7":
-                    System.out.println(carro.desempanador(carro.isDesempanador()));
-                    if(carro.isDesempanador()){
+                    System.out.println(carro.desempanador(carro.getDesempanador()));
+                    if(carro.getDesempanador()){
                         historial.add(new Registro("Desempañador activado", new Date()));
                     }
                     else{
